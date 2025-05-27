@@ -55,7 +55,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
   private void validateRestaurant(Restaurant restaurant) {
     if (!restaurant.isActive()) {
-      throw new OrderDomainException("Restaurant is not active");
+      throw new OrderDomainException("Restaurant " + restaurant.getId().getValue() + " is not active!");
     }
   }
   
