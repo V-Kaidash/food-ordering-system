@@ -5,18 +5,18 @@ import com.food.ordering.system.kafka.config.data.KafkaConsumerConfigData;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Configuration
 public class KafkaConsumerConfig<K extends Serializable, V extends SpecificRecordBase> {
 
   private final KafkaConfigData kafkaConfigData;
@@ -47,14 +47,14 @@ public class KafkaConsumerConfig<K extends Serializable, V extends SpecificRecor
   }
 
   @Bean
-  public ConsumerFactory<K, V> consumerFactory(Map<String, Object> consumerConfig) {
-    return new DefaultKafkaConsumerFactory<>(consumerConfig);
+  public ConsumerFactory<K, V> consumerFactory() {
+    return new DefaultKafkaConsumerFactory<>(consumerConfig());
   }
 
   @Bean
-  public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<K, V>> kafkaListenerContainerFactory(ConsumerFactory<K, V> consumerFactory) {
+  public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<K, V>> kafkaListenerContainerFactory() {
     ConcurrentKafkaListenerContainerFactory<K, V> factory = new ConcurrentKafkaListenerContainerFactory<>();
-    factory.setConsumerFactory(consumerFactory);
+    factory.setConsumerFactory(consumerFactory());
     factory.setBatchListener(kafkaConsumerConfigData.getBatchListener());
     factory.setConcurrency(kafkaConsumerConfigData.getConcurrencyLevel());
     factory.setAutoStartup(kafkaConsumerConfigData.getAutoStartup());
