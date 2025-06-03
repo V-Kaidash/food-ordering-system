@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class Order extends AggregateRoot<OrderId> {
+  public final static String FAILURE_MESSAGE_DELIMITER = ",";
+
   private final CustomerId customerId;
   private final RestaurantId restaurantId;
   private final StreetAddress deliveryAddress;
