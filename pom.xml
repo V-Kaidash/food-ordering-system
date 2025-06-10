@@ -19,6 +19,7 @@
     <module>common</module>
     <module>infrastructure</module>
     <module>infrastructure/kafka</module>
+    <module>customer-service</module>
   </modules>
 
   <properties>
@@ -27,6 +28,7 @@
     <spring-kafka.version>3.0.10</spring-kafka.version>
     <kafka-avro-serializer.version>7.9.1</kafka-avro-serializer.version>
     <avro.version>1.11.4</avro.version>
+    <postgresql.version>42.7.6</postgresql.version>
   </properties>
   
   <dependencyManagement>
@@ -96,6 +98,11 @@
         <artifactId>mockito-core</artifactId>
         <version>${mockito-core.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
